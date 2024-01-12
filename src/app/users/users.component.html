@@ -1,0 +1,63 @@
+<div class="container mt-2">
+  <div class="card" *ngIf="users | async as listUsers; else failureOrLading">
+    <div class="card-header">
+      <div class="nav nav-pills">
+        <div *ngIf="searchFormGroup"  class="float-start">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchUsers()">
+            <div class="input-group">
+              <input type="text" formControlName="keyword" placeholder="Recherche par prénom ou nom" class="form-control">
+              <button class="btn btn-info">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="float-right">
+          <button (click)="handleAddUser()" class="btn btn-primary float-right" >
+            <i class="bi bi-person-add"></i> Créer un utilisateur
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>E-mail</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let u of users | async">
+          <td>{{u.id}}</td>
+          <td>{{u.firstName}}</td>
+          <td>{{u.lastName}}</td>
+          <td>{{u.email}}</td>
+          <td>
+            <button (click)="handleUpdateUser(u)" class="btn btn-link ">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button (click)="handleDeleteUser(u)" class="btn btn-outline-danger btn-sm mr-2">
+              <i class="bi bi-trash"></i>
+            </button>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <ng-template #failureOrLading>
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{errorMessage}}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      Loading .....
+    </ng-template>
+  </ng-template>
+</div>

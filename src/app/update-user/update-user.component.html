@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="card col-md-6 offset-3 mt-2">
+    <div class="card-header">Modification d'utilisateur</div>
+    <div class="card-body">
+      <form
+        [formGroup]="FormData"
+        role="form"
+        (ngSubmit)="onSubmit(FormData.value)"
+      >
+        <div class="form-group mb-3">
+        </div>
+        <div class="mb-3">
+          <label>Prénom</label>
+          <input type="text" formControlName="firstName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label >Nom</label>
+          <input type="text" formControlName="lastName" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label>E-mail : </label>
+          <span class="display-mode">{{ user$?.email }}</span>
+        </div>
+
+        <div class="mt-2">
+          <button  class="btn btn-secondary" (click)="goToUserList()">
+            ANNULER
+          </button>
+          <button type="submit" class="btn btn-success" [disabled]="isloading">
+            MODIFIER
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

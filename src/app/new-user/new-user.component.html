@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="card col-md-6 offset-3 mt-2">
+    <div class="card-header">Création d'utilisateur</div>
+    <div class="card-body">
+
+      <form [formGroup]="newUserFormGroup" (ngSubmit)="handleSaveUser()">
+        <div class="mb-3">
+          <label class="form-label">Prénom:</label>
+          <input type="text" formControlName="firstName" class="form-control">
+          <span class="text-danger"
+                *ngIf="newUserFormGroup.controls['firstName'].touched
+                && newUserFormGroup.controls['firstName'].errors
+                && newUserFormGroup.controls['firstName'].errors!['required']">
+            FirstName is Required
+          </span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Nom:</label>
+          <input type="text" formControlName="lastName" class="form-control">
+          <span class="text-danger"
+                *ngIf="newUserFormGroup.controls['lastName'].touched
+                && newUserFormGroup.controls['lastName'].errors
+                && newUserFormGroup.controls['lastName'].errors!['required']">
+            LastName is Required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email:</label>
+          <input type="text" formControlName="email" class="form-control">
+          <span class="text-danger"
+                *ngIf="newUserFormGroup.controls['email'].touched
+                && newUserFormGroup.controls['email'].errors
+                && newUserFormGroup.controls['email'].errors!['email']">
+             <ng-container *ngIf="newUserFormGroup.controls['email'].errors['email']">
+                Email is not valid
+             </ng-container>
+             <ng-container *ngIf="newUserFormGroup.controls['email'].errors['emailTaken']">
+                 Email is already used by another user
+             </ng-container>
+          </span>
+        </div>
+        <button class="btn btn-secondary" (click)="goToUserList()">ANNULER</button>
+
+        <button [disabled]="!newUserFormGroup.valid" type="submit" class="btn btn-success">
+          CÉER
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
